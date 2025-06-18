@@ -48,12 +48,12 @@ document.getElementById("logout-btn")?.addEventListener("click", () => {
 
 // ✅ Listen to auth state changes and toggle UI accordingly
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // Logged in
+  if (user && manualLoginTriggered) {
+    // Show dashboard only if login was triggered manually
     document.getElementById("login-section").classList.add("hidden");
     document.getElementById("dashboard-section").classList.remove("hidden");
   } else {
-    // Logged out
+    // Hide dashboard and show login
     document.getElementById("dashboard-section").classList.add("hidden");
     document.getElementById("login-section").classList.remove("hidden");
 
@@ -61,5 +61,9 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("login-error").classList.add("hidden");
+
+    // Reset the manual flag so it doesn't persist
+    manualLoginTriggered = false;
   }
 });
+
