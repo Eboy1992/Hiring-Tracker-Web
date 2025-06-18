@@ -36,44 +36,44 @@
 
   <!-- Tab Content -->
   <div id="tab-postings" class="tab-content">
-    <h2 class="text-xl font-semibold mb-2">Job Openings</h2>
-    <div class="overflow-auto">
-      <table class="w-full table-auto border border-gray-300 bg-white shadow-md text-sm">
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="border p-2">No.</th>
-            <th class="border p-2">Position Title<br>(Parenthetical Title, if applicable)</th>
-            <th class="border p-2">Plantilla Item No.</th>
-            <th class="border p-2">Place of Assignment</th>
-            <th class="border p-2">Salary/Job/Pay Grade</th>
-            <th class="border p-2">Monthly Salary</th>
-            <th class="border p-2">Education</th>
-            <th class="border p-2">Training</th>
-            <th class="border p-2">Experience</th>
-            <th class="border p-2">Eligibility</th>
-          </tr>
-        </thead>
-        <tbody id="job-postings-body">
-          <!-- Job rows will be injected here dynamically -->
-        </tbody>
-      </table>
+  <h2 class="text-xl font-semibold mb-2">Job Openings</h2>
+  <div class="overflow-auto">
+    <table class="w-full table-auto border border-gray-300 bg-white shadow-md text-sm">
+      <thead class="bg-gray-200">
+  <tr>
+    <th class="border p-2">No.</th>
+    <th class="border p-2">Position Title<br>(Parenthetical Title, if applicable)</th>
+    <th class="border p-2">Plantilla Item No.</th>
+    <th class="border p-2">Place of Assignment</th>
+    <th class="border p-2">Salary/Job/Pay Grade</th>
+    <th class="border p-2">Monthly Salary</th>
+    <th class="border p-2">Education</th>
+    <th class="border p-2">Training</th>
+    <th class="border p-2">Experience</th>
+    <th class="border p-2">Eligibility</th>
+  </tr>
+</thead>
+      <tbody id="job-postings-body">
+        <!-- Job rows will be injected here dynamically -->
+      </tbody>
       <form id="job-posting-form" class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4 bg-white p-4 rounded shadow">
-        <input type="text" placeholder="Position Title (with Parenthetical)" id="position-title" class="border p-2 rounded" required>
-        <input type="text" placeholder="Plantilla Item No." id="item-no" class="border p-2 rounded" required>
-        <input type="text" placeholder="Place of Assignment" id="assignment" class="border p-2 rounded" required>
-        <input type="text" placeholder="Salary/Job/Pay Grade" id="pay-grade" class="border p-2 rounded" required>
-        <input type="text" placeholder="Monthly Salary" id="salary" class="border p-2 rounded" required>
-        <input type="text" placeholder="Education" id="education" class="border p-2 rounded" required>
-        <input type="text" placeholder="Training" id="training" class="border p-2 rounded" required>
-        <input type="text" placeholder="Experience" id="experience" class="border p-2 rounded" required>
-        <input type="text" placeholder="Eligibility" id="eligibility" class="border p-2 rounded" required>
-        <div class="col-span-1 md:col-span-2 flex justify-between gap-2 mt-2">
-          <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Job Posting</button>
-          <button id="delete-job-btn" type="button" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Delete Last Job</button>
-        </div>
-      </form>
-    </div>
+  <input type="text" placeholder="Position Title (with Parenthetical)" id="position-title" class="border p-2 rounded" required>
+  <input type="text" placeholder="Plantilla Item No." id="item-no" class="border p-2 rounded" required>
+  <input type="text" placeholder="Place of Assignment" id="assignment" class="border p-2 rounded" required>
+  <input type="text" placeholder="Salary/Job/Pay Grade" id="pay-grade" class="border p-2 rounded" required>
+  <input type="text" placeholder="Monthly Salary" id="salary" class="border p-2 rounded" required>
+  <input type="text" placeholder="Education" id="education" class="border p-2 rounded" required>
+  <input type="text" placeholder="Training" id="training" class="border p-2 rounded" required>
+  <input type="text" placeholder="Experience" id="experience" class="border p-2 rounded" required>
+  <input type="text" placeholder="Eligibility" id="eligibility" class="border p-2 rounded" required>
+  <div class="col-span-1 md:col-span-2 flex justify-between gap-2">
+ <div class="col-span-1 md:col-span-2 flex justify-between gap-2 mt-2">
+ <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-2 col-span-1 md:col-span-2 hover:bg-green-700">Add Job Posting</button>
+  <button id="delete-job-btn" type="button" class="bg-red-600 text-white px-4 py-2 rounded w-1/2 hover:bg-red-700">Delete Last Job</button>
+</div>>
+    </table>
   </div>
+</div>
 
   <div id="tab-responses" class="tab-content hidden">
     <h2 class="text-xl font-semibold mb-2">Google Drive Responses</h2>
@@ -113,6 +113,7 @@
 </div>
 
 <script>
+  // Tab functionality
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
@@ -121,12 +122,11 @@
     });
   });
 </script>
-
-<script type="module">
+  <script type="module">
   let jobCount = 1;
 
   document.getElementById('job-posting-form')?.addEventListener('submit', function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form from reloading the page
 
     const position = document.getElementById('position-title').value;
     const itemNo = document.getElementById('item-no').value;
@@ -139,72 +139,40 @@
     const eligibility = document.getElementById('eligibility').value;
 
     const row = document.createElement('tr');
-    const cells = [
-      jobCount++,
-      position,
-      itemNo,
-      assignment,
-      payGrade,
-      salary,
-      education,
-      training,
-      experience,
-      eligibility
-    ];
-
-    cells.forEach((value, i) => {
-      const td = document.createElement('td');
-      td.textContent = value;
-      td.className = "border p-2";
-      if (i !== 0) {
-        td.addEventListener('click', async () => {
-          if (td.isContentEditable) return;
-
-          const pw = prompt("Enter password to edit:");
-          if (pw === "2") {
-            td.contentEditable = true;
-            td.classList.add("bg-yellow-100");
-            td.focus();
-
-            const finishEdit = () => {
-              td.contentEditable = false;
-              td.classList.remove("bg-yellow-100");
-            };
-
-            td.addEventListener('blur', finishEdit, { once: true });
-            td.addEventListener('keydown', e => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                td.blur();
-              }
-            });
-          } else {
-            alert("Incorrect password.");
-          }
-        });
-      }
-      row.appendChild(td);
-    });
+    row.innerHTML = `
+      <td class="border p-2">${jobCount++}</td>
+      <td class="border p-2">${position}</td>
+      <td class="border p-2">${itemNo}</td>
+      <td class="border p-2">${assignment}</td>
+      <td class="border p-2">${payGrade}</td>
+      <td class="border p-2">${salary}</td>
+      <td class="border p-2">${education}</td>
+      <td class="border p-2">${training}</td>
+      <td class="border p-2">${experience}</td>
+      <td class="border p-2">${eligibility}</td>
+    `;
 
     document.getElementById('job-postings-body').appendChild(row);
+
+    // Optional: Clear form after submission
     this.reset();
   });
-
-  document.getElementById('delete-job-btn')?.addEventListener('click', function () {
-    const password = prompt("Enter password to delete the last job posting:");
-    if (password === "1") {
-      const tbody = document.getElementById('job-postings-body');
-      if (tbody.lastChild) {
-        tbody.removeChild(tbody.lastChild);
-        jobCount = Math.max(1, jobCount - 1);
-        alert("Last job posting deleted.");
-      } else {
-        alert("No job posting to delete.");
-      }
+    // DELETE button logic with password protection
+document.getElementById('delete-job-btn')?.addEventListener('click', function () {
+  const password = prompt("Enter password to delete the last job posting:");
+  if (password === "1") {
+    const tbody = document.getElementById('job-postings-body');
+    if (tbody.lastChild) {
+      tbody.removeChild(tbody.lastChild);
+      jobCount = Math.max(1, jobCount - 1);
+      alert("Last job posting deleted.");
     } else {
-      alert("Incorrect password.");
+      alert("No job posting to delete.");
     }
-  });
+  } else {
+    alert("Incorrect password.");
+  }
+});
 </script>
 </body>
 </html>
