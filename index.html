@@ -39,7 +39,7 @@
   <h2 class="text-xl font-semibold mb-2">Job Openings</h2>
   <div class="overflow-auto">
     <table class="w-full table-auto border border-gray-300 bg-white shadow-md text-sm">
-     <thead class="bg-gray-200">
+      <thead class="bg-gray-200">
   <tr>
     <th class="border p-2">No.</th>
     <th class="border p-2">Position Title<br>(Parenthetical Title, if applicable)</th>
@@ -51,7 +51,6 @@
     <th class="border p-2">Training</th>
     <th class="border p-2">Experience</th>
     <th class="border p-2">Eligibility</th>
-    <th class="border p-2">Actions</th> <!-- ← new -->
   </tr>
 </thead>
       <tbody id="job-postings-body">
@@ -154,77 +153,6 @@
 
     // Optional: Clear form after submission
     this.reset();
-  });
-    <script>
-  let jobCount = 1;
-
-  const jobForm = document.getElementById("job-posting-form");
-  const jobBody = document.getElementById("job-postings-body");
-
-  jobForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const position = document.getElementById("position-title").value;
-    const itemNo = document.getElementById("item-no").value;
-    const assignment = document.getElementById("assignment").value;
-    const payGrade = document.getElementById("pay-grade").value;
-    const salary = document.getElementById("salary").value;
-    const education = document.getElementById("education").value;
-    const training = document.getElementById("training").value;
-    const experience = document.getElementById("experience").value;
-    const eligibility = document.getElementById("eligibility").value;
-
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td class="border p-2">${jobCount++}</td>
-      <td class="border p-2">${position}</td>
-      <td class="border p-2">${itemNo}</td>
-      <td class="border p-2">${assignment}</td>
-      <td class="border p-2">${payGrade}</td>
-      <td class="border p-2">${salary}</td>
-      <td class="border p-2">${education}</td>
-      <td class="border p-2">${training}</td>
-      <td class="border p-2">${experience}</td>
-      <td class="border p-2">${eligibility}</td>
-      <td class="border p-2 flex flex-col gap-1">
-        <button class="edit-btn bg-yellow-400 hover:bg-yellow-500 text-xs text-white rounded px-2 py-1">Edit</button>
-        <button class="delete-btn bg-red-600 hover:bg-red-700 text-xs text-white rounded px-2 py-1">Delete</button>
-      </td>
-    `;
-
-    jobBody.appendChild(row);
-    jobForm.reset();
-  });
-
-  // Delegate Delete/Edit actions
-  jobBody.addEventListener("click", function (e) {
-    if (e.target.classList.contains("delete-btn")) {
-      const password = prompt("Enter password to delete:");
-      if (password === "1") {
-        e.target.closest("tr").remove();
-      } else {
-        alert("Incorrect password.");
-      }
-    }
-
-    if (e.target.classList.contains("edit-btn")) {
-      const row = e.target.closest("tr");
-      const cells = row.querySelectorAll("td");
-
-      // Fill form with existing data
-      document.getElementById("position-title").value = cells[1].textContent;
-      document.getElementById("item-no").value = cells[2].textContent;
-      document.getElementById("assignment").value = cells[3].textContent;
-      document.getElementById("pay-grade").value = cells[4].textContent;
-      document.getElementById("salary").value = cells[5].textContent;
-      document.getElementById("education").value = cells[6].textContent;
-      document.getElementById("training").value = cells[7].textContent;
-      document.getElementById("experience").value = cells[8].textContent;
-      document.getElementById("eligibility").value = cells[9].textContent;
-
-      // Remove row so user can re-add
-      row.remove();
-    }
   });
 </script>
 </body>
