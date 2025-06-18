@@ -153,7 +153,36 @@
     `;
 
     document.getElementById('job-postings-body').appendChild(row);
+// Make cells editable on click with password
+row.querySelectorAll('td:nth-child(n+2):nth-child(-n+10)').forEach(cell => {
+  cell.addEventListener('click', function handleClick() {
+    if (cell.getAttribute('contenteditable') === 'true') return; // Already editing
 
+    const password = prompt("Enter password to edit:");
+    if (password === "2") {
+      cell.setAttribute('contenteditable', 'true');
+      cell.focus();
+
+      const saveEdit = () => {
+        cell.removeAttribute('contenteditable');
+        cell.removeEventListener('blur', saveEdit);
+        cell.removeEventListener('keydown', enterToSave);
+      };
+
+      const enterToSave = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          saveEdit();
+        }
+      };
+
+      cell.addEventListener('blur', saveEdit);
+      cell.addEventListener('keydown', enterToSave);
+    } else {
+      alert("Incorrect password.");
+    }
+  });
+});
     // Optional: Clear form after submission
     this.reset();
   });
