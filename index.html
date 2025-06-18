@@ -119,5 +119,41 @@
     });
   });
 </script>
+  <script type="module">
+  let jobCount = 1;
+
+  document.getElementById('job-posting-form')?.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form from reloading the page
+
+    const position = document.getElementById('position-title').value;
+    const itemNo = document.getElementById('item-no').value;
+    const assignment = document.getElementById('assignment').value;
+    const payGrade = document.getElementById('pay-grade').value;
+    const salary = document.getElementById('salary').value;
+    const education = document.getElementById('education').value;
+    const training = document.getElementById('training').value;
+    const experience = document.getElementById('experience').value;
+    const eligibility = document.getElementById('eligibility').value;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td class="border p-2">${jobCount++}</td>
+      <td class="border p-2">${position}</td>
+      <td class="border p-2">${itemNo}</td>
+      <td class="border p-2">${assignment}</td>
+      <td class="border p-2">${payGrade}</td>
+      <td class="border p-2">${salary}</td>
+      <td class="border p-2">${education}</td>
+      <td class="border p-2">${training}</td>
+      <td class="border p-2">${experience}</td>
+      <td class="border p-2">${eligibility}</td>
+    `;
+
+    document.getElementById('job-postings-body').appendChild(row);
+
+    // Optional: Clear form after submission
+    this.reset();
+  });
+</script>
 </body>
 </html>
