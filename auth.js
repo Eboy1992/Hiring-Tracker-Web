@@ -31,8 +31,7 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
 
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
-      document.getElementById("login-section").classList.add("hidden");
-      document.getElementById("dashboard-section").classList.remove("hidden");
+      // Firebase state listener will handle UI
     })
     .catch((error) => {
       alert("Login failed: " + error.message);
@@ -43,16 +42,24 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
 // ✅ Logout
 document.getElementById("logout-btn")?.addEventListener("click", () => {
   signOut(auth).then(() => {
-    // Hide dashboard, show login section
-    document.getElementById("dashboard-section").classList.add("hidden");
-    document.getElementById("login-section").classList.remove("hidden");
-
-    // ✅ Clear the email and password fields
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-
-    // ✅ Hide any previous error message
-    document.getElementById("login-error").classList.add("hidden");
+    // Firebase state listener will handle UI
   });
 });
 
+// ✅ Listen to auth state changes and toggle UI accordingly
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // Logged in
+    document.getElementById("login-section").classList.add("hidden");
+    document.getElementById("dashboard-section").classList.remove("hidden");
+  } else {
+    // Logged out
+    document.getElementById("dashboard-section").classList.add("hidden");
+    document.getElementById("login-section").classList.remove("hidden");
+
+    // Clear input and error
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("login-error").classList.add("hidden");
+  }
+});
