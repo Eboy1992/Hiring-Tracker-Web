@@ -45,16 +45,12 @@ document.getElementById("logout-btn")?.addEventListener("click", () => {
   signOut(auth).then(() => {
     document.getElementById("dashboard-section").classList.add("hidden");
     document.getElementById("login-section").classList.remove("hidden");
-  });
-});
 
-// ✅ Only show dashboard if manually triggered
-onAuthStateChanged(auth, (user) => {
-  if (user && manualLoginTriggered) {
-    document.getElementById("login-section").classList.add("hidden");
-    document.getElementById("dashboard-section").classList.remove("hidden");
-  } else {
-    document.getElementById("dashboard-section").classList.add("hidden");
-    document.getElementById("login-section").classList.remove("hidden");
-  }
+    // ✅ Clear email and password fields
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+
+    // ✅ Hide any previous error message
+    document.getElementById("login-error").classList.add("hidden");
+  });
 });
