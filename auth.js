@@ -6,7 +6,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
-// ✅ Correct modular Firebase initialization
+// ✅ Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDk7WrViUEWC8BnU3D56V8fh16WzN2HxNc",
   authDomain: "hiringapp-88906.firebaseapp.com",
@@ -17,14 +17,17 @@ const firebaseConfig = {
   measurementId: "G-1K0F39SMCS"
 };
 
-// ✅ Modular initialization
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// ✅ Modular login
+// ✅ Track if login button was clicked
+let manualLoginTriggered = false;
+
+// ✅ Login
 document.getElementById("login-btn")?.addEventListener("click", () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  manualLoginTriggered = true;
 
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
@@ -37,7 +40,7 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
     });
 });
 
-// ✅ Modular logout
+// ✅ Logout
 document.getElementById("logout-btn")?.addEventListener("click", () => {
   signOut(auth).then(() => {
     document.getElementById("dashboard-section").classList.add("hidden");
@@ -45,9 +48,9 @@ document.getElementById("logout-btn")?.addEventListener("click", () => {
   });
 });
 
-// ✅ Modular auth state change
+// ✅ Only show dashboard if manually triggered
 onAuthStateChanged(auth, (user) => {
-  if (user) {
+  if (user && manualLoginTriggered) {
     document.getElementById("login-section").classList.add("hidden");
     document.getElementById("dashboard-section").classList.remove("hidden");
   } else {
