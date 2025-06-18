@@ -3,60 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hiring Tracker Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-      padding: 40px;
-    }
-    .hidden {
-      display: none;
-    }
-    .card {
-      max-width: 400px;
-      margin: auto;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    input, button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 16px;
-    }
-    #login-error {
-      color: red;
-      display: none;
-    }
-  </style>
+  <title>Hiring Tracker - Admin</title>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+  <script defer src="auth.js"></script>
+  <script defer src="dashboard.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-
-  <!-- LOGIN FORM -->
-  <div id="login-section" class="card">
-    <h2>Admin Login</h2>
-    <input type="email" id="email" placeholder="Email" required />
-    <input type="password" id="password" placeholder="Password" required />
-    <button id="login-btn">Login</button>
-    <div id="login-error">Invalid email or password.</div>
+<body class="bg-gray-100">
+  <!-- Login Section -->
+  <div id="login-section" class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+      <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
+      <input id="email" type="email" placeholder="Email" class="w-full p-2 border rounded mb-2">
+      <input id="password" type="password" placeholder="Password" class="w-full p-2 border rounded mb-4">
+      <button id="login-btn" class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700">Login</button>
+      <p id="login-error" class="text-red-500 mt-2 hidden">Login failed. Please try again.</p>
+    </div>
   </div>
 
-  <!-- DASHBOARD -->
-  <div id="dashboard-section" class="card hidden">
-    <h2>Welcome Admin</h2>
-    <p>You are now logged in.</p>
-    <button id="logout-btn">Logout</button>
+  <!-- Dashboard Section -->
+  <div id="dashboard-section" class="hidden p-4">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold">Hiring Dashboard</h1>
+      <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+    </div>
+
+    <!-- Job Postings Table -->
+    <h2 class="text-xl font-semibold mb-2">Job Postings</h2>
+    <div class="overflow-auto">
+      <table id="job-table" class="w-full table-auto border border-gray-300 bg-white shadow-md">
+        <thead class="bg-gray-200">
+          <tr id="job-headers"></tr>
+        </thead>
+        <tbody id="job-rows"></tbody>
+      </table>
+    </div>
   </div>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-
-  <!-- Your scripts -->
-  <script src="auth.js"></script>
-  <!-- <script src="dashboard.js"></script> OPTIONAL: Add once dashboard is ready -->
 </body>
 </html>
