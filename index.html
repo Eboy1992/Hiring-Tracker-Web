@@ -66,8 +66,10 @@
   <input type="text" placeholder="Training" id="training" class="border p-2 rounded" required>
   <input type="text" placeholder="Experience" id="experience" class="border p-2 rounded" required>
   <input type="text" placeholder="Eligibility" id="eligibility" class="border p-2 rounded" required>
-  <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-2 col-span-1 md:col-span-2 hover:bg-green-700">Add Job Posting</button>
-</form>
+  <div class="col-span-1 md:col-span-2 flex justify-between gap-2">
+  <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded w-1/2 hover:bg-green-700">Add Job Posting</button>
+  <button id="delete-job-btn" type="button" class="bg-red-600 text-white px-4 py-2 rounded w-1/2 hover:bg-red-700">Delete Last Job</button>
+</div>
     </table>
   </div>
 </div>
@@ -154,6 +156,22 @@
     // Optional: Clear form after submission
     this.reset();
   });
+    // DELETE button logic with password protection
+document.getElementById('delete-job-btn')?.addEventListener('click', function () {
+  const password = prompt("Enter password to delete the last job posting:");
+  if (password === "1") {
+    const tbody = document.getElementById('job-postings-body');
+    if (tbody.lastChild) {
+      tbody.removeChild(tbody.lastChild);
+      jobCount = Math.max(1, jobCount - 1);
+      alert("Last job posting deleted.");
+    } else {
+      alert("No job posting to delete.");
+    }
+  } else {
+    alert("Incorrect password.");
+  }
+});
 </script>
 </body>
 </html>
