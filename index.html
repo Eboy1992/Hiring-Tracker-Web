@@ -123,70 +123,72 @@
   });
 </script>
   <script type="module">
-  let jobCount = 1;
+let jobCount = 1;
 
-  document.getElementById('job-posting-form')?.addEventListener('submit', function (e) {
-    e.preventDefault(); // Prevent form from reloading the page
+document.getElementById('job-posting-form')?.addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent form from reloading the page
 
-    const position = document.getElementById('position-title').value;
-    const itemNo = document.getElementById('item-no').value;
-    const assignment = document.getElementById('assignment').value;
-    const payGrade = document.getElementById('pay-grade').value;
-    const salary = document.getElementById('salary').value;
-    const education = document.getElementById('education').value;
-    const training = document.getElementById('training').value;
-    const experience = document.getElementById('experience').value;
-    const eligibility = document.getElementById('eligibility').value;
+  const position = document.getElementById('position-title').value;
+  const itemNo = document.getElementById('item-no').value;
+  const assignment = document.getElementById('assignment').value;
+  const payGrade = document.getElementById('pay-grade').value;
+  const salary = document.getElementById('salary').value;
+  const education = document.getElementById('education').value;
+  const training = document.getElementById('training').value;
+  const experience = document.getElementById('experience').value;
+  const eligibility = document.getElementById('eligibility').value;
 
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td class="border p-2">${jobCount++}</td>
-      <td class="border p-2">${position}</td>
-      <td class="border p-2">${itemNo}</td>
-      <td class="border p-2">${assignment}</td>
-      <td class="border p-2">${payGrade}</td>
-      <td class="border p-2">${salary}</td>
-      <td class="border p-2">${education}</td>
-      <td class="border p-2">${training}</td>
-      <td class="border p-2">${experience}</td>
-      <td class="border p-2">${eligibility}</td>
-    `;
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td class="border p-2">${jobCount++}</td>
+    <td class="border p-2">${position}</td>
+    <td class="border p-2">${itemNo}</td>
+    <td class="border p-2">${assignment}</td>
+    <td class="border p-2">${payGrade}</td>
+    <td class="border p-2">${salary}</td>
+    <td class="border p-2">${education}</td>
+    <td class="border p-2">${training}</td>
+    <td class="border p-2">${experience}</td>
+    <td class="border p-2">${eligibility}</td>
+  `;
 
-    document.getElementById('job-postings-body').appendChild(row);
-// Make cells editable on click with password
-row.querySelectorAll('td:nth-child(n+2):nth-child(-n+10)').forEach(cell => {
-  cell.addEventListener('click', function handleClick() {
-    if (cell.getAttribute('contenteditable') === 'true') return; // Already editing
+  // Add editable functionality (with password)
+  row.querySelectorAll('td:nth-child(n+2)').forEach(cell => {
+    cell.addEventListener('click', function () {
+      if (cell.getAttribute('contenteditable') === 'true') return;
+      const pw = prompt("Enter password to edit:");
+      if (pw === "2") {
+        cell.setAttribute('contenteditable', 'true');
+        cell.classList.add('bg-yellow-100', 'border-yellow-400', 'ring-2', 'ring-yellow-400');
+        cell.focus();
 
-    const password = prompt("Enter password to edit:");
-    if (password === "2") {
-      cell.setAttribute('contenteditable', 'true');
-      cell.focus();
+        const finishEdit = () => {
+          cell.removeAttribute('contenteditable');
+          cell.classList.remove('bg-yellow-100', 'border-yellow-400', 'ring-2', 'ring-yellow-400');
+          cell.removeEventListener('blur', finishEdit);
+          cell.removeEventListener('keydown', handleEnter);
+        };
 
-      const saveEdit = () => {
-        cell.removeAttribute('contenteditable');
-        cell.removeEventListener('blur', saveEdit);
-        cell.removeEventListener('keydown', enterToSave);
-      };
+        const handleEnter = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            finishEdit();
+          }
+        };
 
-      const enterToSave = (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          saveEdit();
-        }
-      };
-
-      cell.addEventListener('blur', saveEdit);
-      cell.addEventListener('keydown', enterToSave);
-    } else {
-      alert("Incorrect password.");
-    }
+        cell.addEventListener('blur', finishEdit);
+        cell.addEventListener('keydown', handleEnter);
+      } else {
+        alert("Incorrect password.");
+      }
+    });
   });
+
+  document.getElementById('job-postings-body').appendChild(row);
+  this.reset(); // Clear form
 });
-    // Optional: Clear form after submission
-    this.reset();
-  });
-    // DELETE button logic with password protection
+
+// DELETE button logic with password protection
 document.getElementById('delete-job-btn')?.addEventListener('click', function () {
   const password = prompt("Enter password to delete the last job posting:");
   if (password === "1") {
