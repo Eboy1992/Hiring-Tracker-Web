@@ -1,3 +1,11 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDk7WrViUEWC8BnU3D56V8fh16WzN2HxNc",
@@ -9,16 +17,16 @@ const firebaseConfig = {
   measurementId: "G-1K0F39SMCS"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+// Initialize Firebase and Auth
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-// Login
+// Login handler
 document.getElementById("login-btn")?.addEventListener("click", () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  auth.signInWithEmailAndPassword(email, password)
+  signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       document.getElementById("login-section").classList.add("hidden");
       document.getElementById("dashboard-section").classList.remove("hidden");
@@ -29,16 +37,16 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
     });
 });
 
-// Logout
+// Logout handler
 document.getElementById("logout-btn")?.addEventListener("click", () => {
-  auth.signOut().then(() => {
+  signOut(auth).then(() => {
     document.getElementById("dashboard-section").classList.add("hidden");
     document.getElementById("login-section").classList.remove("hidden");
   });
 });
 
-// Auth State
-auth.onAuthStateChanged((user) => {
+// Auth state observer
+onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("login-section").classList.add("hidden");
     document.getElementById("dashboard-section").classList.remove("hidden");
