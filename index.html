@@ -20,22 +20,79 @@
   </div>
 
   <!-- Dashboard Section -->
-  <div id="dashboard-section" class="hidden p-4">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Hiring Dashboard</h1>
-      <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
-    </div>
+ <div id="dashboard-section" class="hidden p-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Hiring Dashboard</h1>
+    <button id="logout-btn" class="bg-red-500 text-white px-4 py-2 rounded">Logout</button>
+  </div>
 
-    <!-- Job Postings Table -->
+  <!-- Tabs for sheets -->
+  <div class="mb-4">
+    <button class="tab-btn bg-blue-600 text-white px-4 py-2 rounded mr-2" data-tab="tab-postings">Job Postings</button>
+    <button class="tab-btn bg-blue-600 text-white px-4 py-2 rounded mr-2" data-tab="tab-responses">Form Responses</button>
+    <button class="tab-btn bg-blue-600 text-white px-4 py-2 rounded mr-2" data-tab="tab-published">Published Applicants</button>
+    <button class="tab-btn bg-blue-600 text-white px-4 py-2 rounded" data-tab="tab-preeval">Pre-Evaluation Docs</button>
+  </div>
+
+  <!-- Tab Content -->
+  <div id="tab-postings" class="tab-content">
     <h2 class="text-xl font-semibold mb-2">Job Postings</h2>
     <div class="overflow-auto">
-      <table id="job-table" class="w-full table-auto border border-gray-300 bg-white shadow-md">
+      <table class="w-full table-auto border border-gray-300 bg-white shadow-md">
         <thead class="bg-gray-200">
-          <tr id="job-headers"></tr>
+          <tr><th class="border p-2">Position Title</th><th class="border p-2">Department</th><th class="border p-2">Openings</th></tr>
         </thead>
-        <tbody id="job-rows"></tbody>
+        <tbody id="job-postings-body"></tbody>
       </table>
     </div>
   </div>
+
+  <div id="tab-responses" class="tab-content hidden">
+    <h2 class="text-xl font-semibold mb-2">Form Responses (July 2–12)</h2>
+    <div class="overflow-auto">
+      <table class="w-full table-auto border border-gray-300 bg-white shadow-md">
+        <thead class="bg-gray-200">
+          <tr><th class="border p-2">Name</th><th class="border p-2">Position</th><th class="border p-2">Date Applied</th></tr>
+        </thead>
+        <tbody id="form-responses-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-published" class="tab-content hidden">
+    <h2 class="text-xl font-semibold mb-2">Published Applicants</h2>
+    <div class="overflow-auto">
+      <table class="w-full table-auto border border-gray-300 bg-white shadow-md">
+        <thead class="bg-gray-200">
+          <tr><th class="border p-2">Name</th><th class="border p-2">Position</th><th class="border p-2">Score</th></tr>
+        </thead>
+        <tbody id="published-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-preeval" class="tab-content hidden">
+    <h2 class="text-xl font-semibold mb-2">Pre-Evaluation Documents</h2>
+    <div class="overflow-auto">
+      <table class="w-full table-auto border border-gray-300 bg-white shadow-md">
+        <thead class="bg-gray-200">
+          <tr><th class="border p-2">Name</th><th class="border p-2">Resume</th><th class="border p-2">ID</th></tr>
+        </thead>
+        <tbody id="preeval-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Tab functionality
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+      const tabId = btn.getAttribute('data-tab');
+      document.getElementById(tabId).classList.remove('hidden');
+    });
+  });
+</script>
 </body>
 </html>
