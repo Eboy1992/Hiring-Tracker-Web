@@ -6,7 +6,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
-// Firebase config
+// ✅ Correct modular Firebase initialization
 const firebaseConfig = {
   apiKey: "AIzaSyDk7WrViUEWC8BnU3D56V8fh16WzN2HxNc",
   authDomain: "hiringapp-88906.firebaseapp.com",
@@ -17,11 +17,11 @@ const firebaseConfig = {
   measurementId: "G-1K0F39SMCS"
 };
 
-// Initialize Firebase and Auth
+// ✅ Modular initialization
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Login handler
+// ✅ Modular login
 document.getElementById("login-btn")?.addEventListener("click", () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -37,7 +37,7 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
     });
 });
 
-// Logout handler
+// ✅ Modular logout
 document.getElementById("logout-btn")?.addEventListener("click", () => {
   signOut(auth).then(() => {
     document.getElementById("dashboard-section").classList.add("hidden");
@@ -45,7 +45,7 @@ document.getElementById("logout-btn")?.addEventListener("click", () => {
   });
 });
 
-// Auth state observer
+// ✅ Modular auth state change
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("login-section").classList.add("hidden");
