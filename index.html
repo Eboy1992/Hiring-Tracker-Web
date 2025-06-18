@@ -151,28 +151,6 @@ row.innerHTML = `
   <td class="border p-2">${experience}</td>
   <td class="border p-2">${eligibility}</td>
 `;
-
-row.addEventListener('click', function () {
-  const password = prompt("Enter password to edit this job:");
-  if (password !== "2") {
-    alert("Incorrect password.");
-    return;
-  }
-
-  const cells = row.querySelectorAll("td");
-  const fields = [
-    "Position Title", "Item No.", "Assignment", "Pay Grade",
-    "Monthly Salary", "Education", "Training", "Experience", "Eligibility"
-  ];
-
-  for (let i = 1; i <= 9; i++) {
-    const newVal = prompt(`Edit ${fields[i - 1]}:`, cells[i].innerText);
-    if (newVal !== null) {
-      cells[i].innerText = newVal;
-    }
-  }
-});
-
     document.getElementById('job-postings-body').appendChild(row);
 
     // Optional: Clear form after submission
