@@ -139,7 +139,7 @@
     const eligibility = document.getElementById('eligibility').value;
 
     const row = document.createElement('tr');
-    row.innerHTML = 
+    row.innerHTML = `
       <td class="border p-2">${jobCount++}</td>
       <td class="border p-2">${position}</td>
       <td class="border p-2">${itemNo}</td>
@@ -150,7 +150,7 @@
       <td class="border p-2">${training}</td>
       <td class="border p-2">${experience}</td>
       <td class="border p-2">${eligibility}</td>
-    ;
+    `;
 
     document.getElementById('job-postings-body').appendChild(row);
 
