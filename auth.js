@@ -54,3 +54,4 @@ document.getElementById("logout-btn")?.addEventListener("click", () => {
     document.getElementById("login-error").classList.add("hidden");
   });
 });
+
