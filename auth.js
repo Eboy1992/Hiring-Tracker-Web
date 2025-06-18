@@ -23,7 +23,8 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
       document.getElementById("login-section").classList.add("hidden");
       document.getElementById("dashboard-section").classList.remove("hidden");
     })
-    .catch(() => {
+    .catch((error) => {
+      alert("Login failed: " + error.message);
       document.getElementById("login-error").classList.remove("hidden");
     });
 });
