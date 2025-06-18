@@ -43,10 +43,11 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
 // ✅ Logout
 document.getElementById("logout-btn")?.addEventListener("click", () => {
   signOut(auth).then(() => {
+    // Hide dashboard, show login section
     document.getElementById("dashboard-section").classList.add("hidden");
     document.getElementById("login-section").classList.remove("hidden");
 
-    // ✅ Clear email and password fields
+    // ✅ Clear the email and password fields
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
 
