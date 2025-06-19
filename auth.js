@@ -8,7 +8,7 @@ import {
 
 // ✅ Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDk7WrViUEWC8BnU3D56V8fh16WzN2HxNc",
+  const apiKey = process.env.GOOGLE_API_KEY;
   authDomain: "hiringapp-88906.firebaseapp.com",
   projectId: "hiringapp-88906",
   storageBucket: "hiringapp-88906.firebasestorage.app",
